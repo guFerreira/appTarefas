@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Tarefa</title>
+
+    <!--Bootstrap css-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+
+    <header id="header">
+        <div th:replace="base :: navbar"></div>
+
+
+    </header>
+
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col-10 col-sm-8 mx-auto">
+                <!-- Se a tarefa já existir, exibir o formulário de atualização dos dados da tarefa-->
+                <div th:if="${tarefa != null && #strings.isEmpty(tarefa.titulo) == false}">
+                    <div class="card text-center mx-auto border-success">
+                        <div class="card-header border-success">
+                            <h4 class="card-title">Atualizar Tarefa
+                            </h4>
+                        </div>
+                        <div class="card-body ">
+                            <form action="#" th:action="@{'/tarefas/atualizar/{id}'(id=${tarefa.id})}"
+                                th:object="${tarefa}" method="post">
+
+                                <div class="row">
+                                    <div class="col-10 offset-1">
+                                        <label for="titulo" class="form-label">Título da Tarefa:</label>
+                                        <input type="text" class="form-control" id="titulo" th:field="*{titulo}">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-10 offset-1">
+                                        <label for="descricao" class="form-label">Descrição da Tarefa:</label>
+                                        <textarea id="descricao" class="form-control" type="text"
+                                            th:field="*{descricao}" rows="3"></textarea>
+                                    </div>
+                                </div>
+
+
+                                <div th:replace="base :: alertaFormulario"></div>
+
+                                <div class="d-grid gap-2 pt-2 px-5">
+                                    <button class="btn btn-success" type="submit" name="action">Atualizar</button>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--Bootstrap Js-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
